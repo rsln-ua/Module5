@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement } from 'react';
 import {
   Box,
   Link,
@@ -8,10 +8,10 @@ import {
   MenuItem,
   Toolbar,
   Typography,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { routes } from "../routes";
-import { NavLink } from "react-router-dom";
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { routes } from '../routes';
+import { NavLink } from 'react-router-dom';
 
 const Navbar: FC = (): ReactElement => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -27,9 +27,9 @@ const Navbar: FC = (): ReactElement => {
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "auto",
-        backgroundColor: "secondary.main",
+        width: '100%',
+        height: 'auto',
+        backgroundColor: 'secondary.main',
       }}
     >
       <Container maxWidth="xl">
@@ -39,12 +39,17 @@ const Navbar: FC = (): ReactElement => {
             noWrap
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              display: { xs: 'none', md: 'flex' },
             }}
           >
             A-LEVEL CURSE
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -59,18 +64,18 @@ const Navbar: FC = (): ReactElement => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+                vertical: 'top',
+                horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: 'block', md: 'none' },
               }}
             >
               {routes.map((page) => (
@@ -93,18 +98,26 @@ const Navbar: FC = (): ReactElement => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+            }}
           >
             A-LEVEL CURSE
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+            }}
+          >
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                marginLeft: "1rem",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                marginLeft: '1rem',
               }}
             >
               {routes.map((page) => (
@@ -115,7 +128,10 @@ const Navbar: FC = (): ReactElement => {
                   color="black"
                   underline="none"
                   variant="button"
-                  sx={{ fontSize: "large", marginLeft: "2rem" }}
+                  sx={{
+                    fontSize: 'large',
+                    marginLeft: '2rem',
+                  }}
                 >
                   {page.title}
                 </Link>
