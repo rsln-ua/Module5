@@ -1,40 +1,32 @@
-// pages
-import Home from './pages/Home';
-import About from './pages/About';
-import Products from './pages/Products';
-
-// other
 import { FC } from 'react';
+import { ResourcesContainer } from './containers/ResourcesContainer';
+import Home from './pages/Home';
+import { routes } from './constants/routes';
+import { ViewResourceContainer } from './containers/ViewResourceContainer';
 
-// interface
 interface Route {
   key: string;
-  title: string;
   path: string;
-  enabled: boolean;
+  title?: string;
   component: FC<{}>;
 }
 
-export const routes: Array<Route> = [
+export const appRoutes: Array<Route> = [
   {
     key: 'home-route',
+    path: routes.home.path,
     title: 'Home',
-    path: '/',
-    enabled: true,
     component: Home,
   },
   {
-    key: 'about-route',
-    title: 'About',
-    path: '/about',
-    enabled: true,
-    component: About,
+    key: 'resources',
+    path: routes.resources.path,
+    title: 'Resources',
+    component: ResourcesContainer,
   },
   {
-    key: 'products-route',
-    title: 'Products',
-    path: '/products',
-    enabled: true,
-    component: Products,
+    key: 'view-resource',
+    path: routes.viewResource.path,
+    component: ViewResourceContainer,
   },
 ];

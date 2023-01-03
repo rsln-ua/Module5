@@ -10,8 +10,10 @@ import {
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { routes } from '../routes';
+import { appRoutes } from '../routes';
 import { NavLink } from 'react-router-dom';
+
+const routes = appRoutes.filter((el) => Boolean(el.title));
 
 const Navbar: FC = (): ReactElement => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

@@ -18,11 +18,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           justifyContent: 'flex-start',
           minHeight: '100vh',
           maxWidth: '100vw',
-          flexGrow: 1,
         }}
       >
         <Navbar />
-        {children}
+        <Box style={{ flexGrow: 1 }}>{children}</Box>
         <Footer />
       </Box>
     </>
