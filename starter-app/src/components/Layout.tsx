@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import { Box, CssBaseline } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -7,7 +8,21 @@ interface LayoutProps {
   children: ReactNode;
 }
 
+const useStyles = makeStyles({
+  contentWrapper: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+
+    '& > *': {
+      flexGrow: 1,
+    },
+  },
+});
+
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const styles = useStyles();
+
   return (
     <>
       <CssBaseline />
@@ -21,7 +36,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         }}
       >
         <Navbar />
-        <Box style={{ flexGrow: 1 }}>{children}</Box>
+        <Box className={styles.contentWrapper}>{children}</Box>
         <Footer />
       </Box>
     </>

@@ -30,33 +30,42 @@ export const Resources: React.FC<IResources> = ({
       }}
     >
       <Typography variant="h2">Resources</Typography>
-
-      <CardListContainer
-        pagesCount={pagesCount}
-        currentPage={currentPage}
-        pageOnChange={pageOnChange}
+      <Box
+        style={{
+          maxWidth: '900px',
+          margin: '0 auto',
+        }}
       >
-        {items.map((el) => (
-          <CardItem key={el.id} title={el.name}>
-            <Link to={routes.viewResource.get({ id: el.id })}>
-              <Typography gutterBottom variant="h6" component="div">
-                id: {el.id}
-              </Typography>
-              <Typography gutterBottom variant="h6" component="div">
-                year: {el.year}
-              </Typography>
-              <Typography gutterBottom variant="h6" component="div">
-                pantone value: {el.pantone_value}
-              </Typography>
-              <Box style={{ backgroundColor: el.color }}>
+        <CardListContainer
+          pagesCount={pagesCount}
+          currentPage={currentPage}
+          pageOnChange={pageOnChange}
+        >
+          {items.map((el) => (
+            <CardItem key={el.id}>
+              <Link to={routes.viewResource.get({ id: el.id })}>
                 <Typography gutterBottom variant="h6" component="div">
-                  color: {el.color}
+                  id: {el.id}
                 </Typography>
-              </Box>
-            </Link>
-          </CardItem>
-        ))}
-      </CardListContainer>
+                <Typography gutterBottom variant="h6" component="div">
+                  name: {el.name}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                  year: {el.year}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                  pantone value: {el.pantone_value}
+                </Typography>
+                <Box style={{ backgroundColor: el.color }}>
+                  <Typography gutterBottom variant="h6" component="div">
+                    color: {el.color}
+                  </Typography>
+                </Box>
+              </Link>
+            </CardItem>
+          ))}
+        </CardListContainer>
+      </Box>
     </Box>
   );
 };
