@@ -32,7 +32,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             },
           }}
         >
-          {' '}
           {children}
         </Box>
 
