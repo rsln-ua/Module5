@@ -3,8 +3,8 @@ import { Box, Typography } from '@mui/material';
 import { TResourcesDto } from '../types/resources';
 import { CardListContainer } from '../components/CardListContainer';
 import { CardItem } from '../components/CardItem';
-import { Link } from 'react-router-dom';
 import { routes } from '../constants/routes';
+import { ReactLink } from '../components/ReactLink';
 
 interface IResources {
   items: Array<TResourcesDto>;
@@ -43,7 +43,7 @@ export const Resources: React.FC<IResources> = ({
         >
           {items.map((el) => (
             <CardItem key={el.id}>
-              <Link to={routes.viewResource.get({ id: el.id })}>
+              <ReactLink to={routes.viewResource.get({ id: el.id })}>
                 <Typography gutterBottom variant="h6" component="div">
                   id: {el.id}
                 </Typography>
@@ -61,7 +61,7 @@ export const Resources: React.FC<IResources> = ({
                     color: {el.color}
                   </Typography>
                 </Box>
-              </Link>
+              </ReactLink>
             </CardItem>
           ))}
         </CardListContainer>
