@@ -22,7 +22,11 @@ export const getUserById = (id: number) => {
 };
 
 export const updateUserById = (id: number, userData: Partial<TUserDto>) => {
-  return jsonQuery('api/users/' + id, HTTP_METHOD.PUT, userData);
+  return jsonQuery<{ id: string } | null>(
+    'api/users/' + id,
+    HTTP_METHOD.PUT,
+    userData
+  );
 };
 
 export const createUser = (userData: Partial<TUserDto>) => {

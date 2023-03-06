@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ViewResource } from '../pages/ViewResource';
 import { Loader } from '../components/Loader';
-import { getResourceById } from '../api/resources';
 import { useNavigate, useParams } from 'react-router-dom';
-import { TResourcesDto } from '../types/resources';
 import { routes } from '../constants/routes';
+import { AppStoreContext } from '../stores';
+import { observer } from 'mobx-react';
 
-export const ViewResourceContainer: React.FC = () => {
-  const [item, setItem] = useState<TResourcesDto>();
+export const ViewResourceContainer: React.FC = observer(() => {
+  const { currentResource } = useContext(AppStoreContext);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getResourceById(+id!)
-      .then((el) => {
-        if (!el.data.id) throw new Error();
-        setItem(el.data);
-      })
-      .catch(() => {
-        navigate(routes.resources.get());
-      });
+    currentResource.getItem(+id!).catch(() => {
+      navigate(routes.resources.get());
+    });
+
+    return () => currentResource.clear();
   }, []);
 
-  return item ? <ViewResource {...item} /> : <Loader />;
-};
+  return currentResource.item ? (
+    <ViewResource {...currentResource.item} />
+  ) : (
+    <Loader />
+  );
+});

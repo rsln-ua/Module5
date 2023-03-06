@@ -1,9 +1,10 @@
 import React from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { appRoutes } from './routes';
 import Layout from './components/Layout';
+import { appStore, AppStoreContext } from './stores';
 
 function App() {
   // define theme
@@ -27,19 +28,21 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <Layout>
-          <Routes>
-            {appRoutes.map((route) => (
-              <Route
-                key={route.key}
-                path={route.path}
-                element={<route.component />}
-              />
-            ))}
-          </Routes>
-        </Layout>
-      </Router>
+      <AppStoreContext.Provider value={appStore}>
+        <Router>
+          <Layout>
+            <Routes>
+              {appRoutes.map((route) => (
+                <Route
+                  key={route.key}
+                  path={route.path}
+                  element={<route.component />}
+                />
+              ))}
+            </Routes>
+          </Layout>
+        </Router>
+      </AppStoreContext.Provider>
     </ThemeProvider>
   );
 }

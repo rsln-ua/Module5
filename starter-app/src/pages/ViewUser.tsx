@@ -10,6 +10,7 @@ interface IViewUser {
   first_name: string;
   last_name: string;
   avatar: string;
+  onEdit: () => void;
 }
 
 export const ViewUser: React.FC<IViewUser> = ({
@@ -18,6 +19,7 @@ export const ViewUser: React.FC<IViewUser> = ({
   first_name,
   email,
   id,
+  onEdit,
 }) => {
   return (
     <Box
@@ -33,7 +35,7 @@ export const ViewUser: React.FC<IViewUser> = ({
         margin: '0 auto',
       }}
     >
-      <Link to={routes.editUser.get({ id: id })}>
+      <Link to={routes.editUser.get({ id: id })} onClick={onEdit}>
         <Button
           variant={'contained'}
           style={{ position: 'absolute', left: 0, color: 'white' }}

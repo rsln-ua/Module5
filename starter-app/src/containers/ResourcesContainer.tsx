@@ -1,40 +1,25 @@
+import { observer } from 'mobx-react';
 import { Resources } from '../pages/Resources';
-import React, { useEffect, useState } from 'react';
-import { getListResources } from '../api/resources';
-import { TResourcesDto } from '../types/resources';
+import React, { useContext, useEffect } from 'react';
+import { AppStoreContext } from '../stores';
 
-export const ResourcesContainer: React.FC = () => {
-  const [{ items, currentPage, pagesCount }, setData] = useState<TDataState>({
-    items: [],
-    pagesCount: 0,
-    currentPage: 1,
-  });
+export const ResourcesContainer: React.FC = observer(() => {
+  const { resources } = useContext(AppStoreContext);
+
   useEffect(() => {
-    getListResources(currentPage).then((el) => {
-      setData({
-        items: el.data,
-        currentPage: el.page,
-        pagesCount: el.total_pages,
-      });
-    });
-  }, [currentPage]);
+    resources.getList();
+  }, [resources.currentPage]);
 
   const handleChangePage = (pageNumber: number) => {
-    setData((prev) => ({ ...prev, currentPage: pageNumber }));
+    resources.currentPage = pageNumber;
   };
 
   return (
     <Resources
-      items={items}
-      currentPage={currentPage}
-      pagesCount={pagesCount}
+      items={resources.list}
+      currentPage={resources.currentPage}
+      pagesCount={resources.totalPages}
       pageOnChange={handleChangePage}
     />
   );
-};
-
-interface TDataState {
-  items: Array<TResourcesDto>;
-  pagesCount: number;
-  currentPage: number;
-}
+});

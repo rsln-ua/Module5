@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Avatar, Box, Button, Typography } from '@mui/material';
 import { CardListContainer } from '../components/CardListContainer';
 import { CardItem } from '../components/CardItem';
 import { routes } from '../constants/routes';
 import { TUserDto } from '../types/user';
+import { ReactLink } from '../components/ReactLink';
 
 interface IUsers {
   items: Array<TUserDto>;
@@ -33,6 +33,7 @@ export const Users: React.FC<IUsers> = ({
         style={{
           maxWidth: '900px',
           margin: '0 auto',
+          width: '100%',
         }}
       >
         <Box
@@ -40,16 +41,15 @@ export const Users: React.FC<IUsers> = ({
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            width: '100%',
             marginBottom: '1em',
           }}
         >
           <Typography variant="h2">Users</Typography>
-          <Link to={routes.createUser.get()}>
+          <ReactLink to={routes.createUser.get()}>
             <Button style={{ color: 'white' }} variant={'contained'}>
               New +
             </Button>
-          </Link>
+          </ReactLink>
         </Box>
         <CardListContainer
           pagesCount={pagesCount}
@@ -58,7 +58,7 @@ export const Users: React.FC<IUsers> = ({
         >
           {items.map((el) => (
             <CardItem key={el.id}>
-              <Link to={routes.viewUser.get({ id: el.id })}>
+              <ReactLink to={routes.viewUser.get({ id: el.id })}>
                 <Box sx={{ display: 'flex', gap: '1em' }}>
                   <Avatar src={el.avatar} sx={{ width: 56, height: 56 }} />
                   <Box>
@@ -76,7 +76,7 @@ export const Users: React.FC<IUsers> = ({
                     </Typography>
                   </Box>
                 </Box>
-              </Link>
+              </ReactLink>
             </CardItem>
           ))}
         </CardListContainer>

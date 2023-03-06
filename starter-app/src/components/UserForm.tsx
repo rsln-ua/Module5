@@ -42,6 +42,7 @@ export const UserForm: React.FC<IUserForm> = ({
     };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
     const _errors = (
       [
         [formKeys.firstName, Boolean],
@@ -51,9 +52,8 @@ export const UserForm: React.FC<IUserForm> = ({
       ] as validations
     ).map(([key, validator]) => validator(formData[key]!));
 
-    if (_errors.every(Boolean)) onSubmit?.(formData);
-    else {
-      event.preventDefault();
+    if (_errors.every((el) => el)) {
+      onSubmit?.(formData2DTO(formData));
     }
   };
 
@@ -111,3 +111,11 @@ const formLabels: Record<keyof TUserFormData, string> = {
   email: 'Email',
   avatar: 'Avatar',
 };
+
+function formData2DTO(data: Partial<TUserFormData>): Partial<TUserDto> {
+  return {
+    first_name: data.firstName,
+    last_name: data.lastName,
+    ...data,
+  };
+}
