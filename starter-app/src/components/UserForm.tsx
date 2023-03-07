@@ -116,6 +116,7 @@ function formData2DTO(data: Partial<TUserFormData>): Partial<TUserDto> {
   return {
     first_name: data.firstName,
     last_name: data.lastName,
-    ...data,
+    email: data.email,
+    avatar: data.avatar,
   };
 }

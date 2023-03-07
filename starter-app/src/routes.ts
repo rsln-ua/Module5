@@ -3,7 +3,6 @@ import { ResourcesContainer } from './containers/ResourcesContainer';
 import Home from './pages/Home';
 import { routes } from './constants/routes';
 import { ViewResourceContainer } from './containers/ViewResourceContainer';
-import { SuccessPage } from './pages/SuccessPage';
 import { UsersContainer } from './containers/UsersContainer';
 import { ViewUserContainer } from './containers/ViewUserContainer';
 import { EditUserContainer } from './containers/EditUserContainer';
@@ -54,10 +53,5 @@ export const appRoutes: Array<Route> = [
     key: 'create-user',
     path: routes.createUser.path,
     component: CreateUserContainer,
-  },
-  {
-    key: 'success',
-    path: routes.success.path,
-    component: SuccessPage,
   },
 ];

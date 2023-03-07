@@ -30,5 +30,9 @@ export const updateUserById = (id: number, userData: Partial<TUserDto>) => {
 };
 
 export const createUser = (userData: Partial<TUserDto>) => {
-  return jsonQuery('api/users', HTTP_METHOD.POST, userData);
+  return jsonQuery<{ id: string } | null>(
+    'api/users',
+    HTTP_METHOD.POST,
+    userData
+  );
 };

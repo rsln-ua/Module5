@@ -1,32 +1,26 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Loader } from '../components/Loader';
 import { useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../constants/routes';
 import { TUserDto } from '../types/user';
 import { EditUser } from '../pages/EditUser';
-import { AppStoreContext } from '../stores';
 import { observer } from 'mobx-react';
+import { useAppState, useCleanupUserDataUnmount } from '../hooks/state';
 
 export const EditUserContainer: React.FC = observer(() => {
-  const { currentUser } = useContext(AppStoreContext);
+  const { currentUser } = useAppState();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const dontClearData = useRef<boolean>(false);
+  const setCleanup = useCleanupUserDataUnmount();
 
   useEffect(() => {
     currentUser.getItem(+id!).catch(() => {
       navigate(routes.resources.get());
     });
-
-    return () => {
-      if (!dontClearData.current) {
-        currentUser.clear();
-      }
-    };
   }, []);
 
   const saveUser = (data: Partial<TUserDto>) => {
-    dontClearData.current = true;
+    setCleanup(false);
     currentUser.updateUser(data).then(
       () => {
         navigate(routes.viewUser.get({ id: +id! }));
