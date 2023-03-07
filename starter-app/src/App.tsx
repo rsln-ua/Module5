@@ -3,8 +3,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { appRoutes } from './routes';
-import Layout from './components/Layout';
 import { appStore, AppStoreContext } from './stores';
+import { LayoutContainer } from './containers/LayoutContainer';
 
 function App() {
   // define theme
@@ -30,7 +30,7 @@ function App() {
       <CssBaseline />
       <AppStoreContext.Provider value={appStore}>
         <Router>
-          <Layout>
+          <LayoutContainer>
             <Routes>
               {appRoutes.map((route) => (
                 <Route
@@ -40,7 +40,7 @@ function App() {
                 />
               ))}
             </Routes>
-          </Layout>
+          </LayoutContainer>
         </Router>
       </AppStoreContext.Provider>
     </ThemeProvider>

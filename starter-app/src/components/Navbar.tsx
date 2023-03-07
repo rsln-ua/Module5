@@ -1,9 +1,9 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC } from 'react';
 import {
   Box,
-  Link,
   Container,
   IconButton,
+  Link,
   Menu,
   MenuItem,
   Toolbar,
@@ -12,10 +12,23 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { appRoutes } from '../routes';
 import { NavLink } from 'react-router-dom';
+import { SignButtons } from './SignButtons';
 
 const routes = appRoutes.filter((el) => Boolean(el.title));
 
-const Navbar: FC = (): ReactElement => {
+interface INavbar {
+  isAuthorized: boolean;
+  onSignIn: () => void;
+  onSignUp: () => void;
+  onSignOut: () => void;
+}
+
+const Navbar: FC<INavbar> = ({
+  isAuthorized,
+  onSignUp,
+  onSignIn,
+  onSignOut,
+}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event: any) => {
@@ -94,6 +107,12 @@ const Navbar: FC = (): ReactElement => {
                   </MenuItem>
                 </Link>
               ))}
+              <SignButtons
+                isAuthorized={isAuthorized}
+                onSignIn={onSignIn}
+                onSignOut={onSignOut}
+                onSignUp={onSignUp}
+              />
             </Menu>
           </Box>
           <Typography
@@ -111,6 +130,7 @@ const Navbar: FC = (): ReactElement => {
             sx={{
               flexGrow: 1,
               display: { xs: 'none', md: 'flex' },
+              justifyContent: 'space-between',
             }}
           >
             <Box
@@ -139,6 +159,12 @@ const Navbar: FC = (): ReactElement => {
                 </Link>
               ))}
             </Box>
+            <SignButtons
+              isAuthorized={isAuthorized}
+              onSignIn={onSignIn}
+              onSignOut={onSignOut}
+              onSignUp={onSignUp}
+            />
           </Box>
         </Toolbar>
       </Container>

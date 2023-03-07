@@ -5,9 +5,19 @@ import Footer from './Footer';
 
 interface LayoutProps {
   children: ReactNode;
+  isAuthorized: boolean;
+  onSignIn: () => void;
+  onSignUp: () => void;
+  onSignOut: () => void;
 }
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const Layout: FC<LayoutProps> = ({
+  children,
+  isAuthorized,
+  onSignUp,
+  onSignIn,
+  onSignOut,
+}) => {
   return (
     <>
       <CssBaseline />
@@ -20,7 +30,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           maxWidth: '100vw',
         }}
       >
-        <Navbar />
+        <Navbar
+          isAuthorized={isAuthorized}
+          onSignIn={onSignIn}
+          onSignUp={onSignUp}
+          onSignOut={onSignOut}
+        />
         <Box
           sx={{
             flexGrow: 1,
