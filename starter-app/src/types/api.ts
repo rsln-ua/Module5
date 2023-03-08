@@ -8,4 +8,5 @@ export interface TPaginatedList<T> {
 
 export interface TData<T> {
   data: T;
+  error?: string;
 }

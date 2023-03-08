@@ -97,7 +97,7 @@ const Navbar: FC<INavbar> = ({
                 <Link
                   key={page.key}
                   component={NavLink}
-                  to={page.path}
+                  to={page.link}
                   color="black"
                   underline="none"
                   variant="button"
@@ -146,7 +146,7 @@ const Navbar: FC<INavbar> = ({
                 <Link
                   key={page.key}
                   component={NavLink}
-                  to={page.path}
+                  to={page.link}
                   color="black"
                   underline="none"
                   variant="button"

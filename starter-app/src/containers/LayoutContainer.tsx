@@ -1,11 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { observer } from 'mobx-react';
 import Layout from '../components/Layout';
 import { useAppState } from '../hooks/state';
 import { Loader } from '../components/Loader';
-import { Routes, useLocation, useNavigate } from 'react-router-dom';
 import { AuthModal } from '../components/AuthModal';
-import { relativeRoute } from '../components/RelativeRoute';
+import { Alert, Snackbar } from '@mui/material';
 
 interface ILayoutContainer {
   children: ReactNode;
@@ -14,15 +13,34 @@ interface ILayoutContainer {
 export const LayoutContainer: React.FC<ILayoutContainer> = observer(
   ({ children }) => {
     const { auth } = useAppState();
-    const navigate = useNavigate();
-    const location = useLocation();
+    const [modalsState, setModalsState] = useState({
+      signIn: false,
+      signUp: false,
+    });
 
-    const onSignUp = () => {};
-    const onSignIn = () => {
-      navigate(location.pathname + '/' + 'test');
+    const onSignUpOpen = () => {
+      setModalsState({ signIn: false, signUp: true });
+    };
+    const onSignInOpen = () => {
+      setModalsState({ signIn: true, signUp: false });
+    };
+    const onSignUpSubmit = (params: { email: string; password: string }) => {
+      return auth.register(params.email, params.password);
+    };
+    const onSignInSubmit = (params: { email: string; password: string }) => {
+      return auth.login(params.email, params.password);
+    };
+    const onSignUpClose = () => {
+      setModalsState({ signIn: false, signUp: false });
+    };
+    const onSignInClose = () => {
+      setModalsState({ signIn: false, signUp: false });
     };
     const onSignOut = () => {
       auth.token = null;
+    };
+    const clearErrors = () => {
+      auth.error = '';
     };
 
     return (
@@ -30,19 +48,31 @@ export const LayoutContainer: React.FC<ILayoutContainer> = observer(
         <Loader active={auth.isLoading} />
         <Layout
           isAuthorized={auth.isAuthorized}
-          onSignIn={onSignIn}
+          onSignIn={onSignInOpen}
           onSignOut={onSignOut}
-          onSignUp={onSignUp}
+          onSignUp={onSignUpOpen}
         >
           {children}
         </Layout>
-        <Routes>
-          {relativeRoute({
-            location,
-            path: 'test',
-            children: <AuthModal />,
-          })}
-        </Routes>
+        <AuthModal
+          title={'Sign In'}
+          isOpen={modalsState.signIn}
+          onClose={onSignInClose}
+          onSubmit={onSignInSubmit}
+        />
+        <AuthModal
+          title={'Sign Up'}
+          isOpen={modalsState.signUp}
+          onClose={onSignUpClose}
+          onSubmit={onSignUpSubmit}
+        />
+        <Snackbar
+          open={Boolean(auth.error)}
+          autoHideDuration={4000}
+          onClose={clearErrors}
+        >
+          <Alert color={'error'}>{auth.error}</Alert>
+        </Snackbar>
       </>
     );
   }
